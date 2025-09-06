@@ -8,32 +8,28 @@ export interface User {
 
 export interface Project {
   id: string;
-  name: string;
-  description: string;
-  manager: User;
-  members: User[];
-  deadline: Date;
-  priority: 'Low' | 'Medium' | 'High';
-  image?: string;
-  tags: string[];
-  progress: number;
-  createdAt: Date;
-  updatedAt: Date;
+  title: string;
+  description?: string;
+  status: 'active' | 'completed' | 'on-hold';
+  ownerId: string;
+  owner?: User;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Task {
   id: string;
   title: string;
-  description: string;
-  assignee: User;
-  project: Project;
-  status: 'To-Do' | 'In Progress' | 'Done';
-  priority: 'Low' | 'Medium' | 'High';
-  dueDate: Date;
-  tags: string[];
-  image?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  description?: string;
+  status: 'todo' | 'in-progress' | 'completed';
+  priority: 'low' | 'medium' | 'high';
+  dueDate?: string;
+  projectId: string;
+  project?: Project;
+  assigneeId: string;
+  assignee?: User;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Comment {

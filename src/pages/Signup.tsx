@@ -74,18 +74,18 @@ const Signup: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-600 hover:text-gray-900 font-medium">
+              <Link to="/#home" className="text-gray-600 hover:text-gray-900 font-medium">
                 Home
-              </a>
-              <a href="#about" className="text-gray-600 hover:text-gray-900 font-medium">
+              </Link>
+              <Link to="/#about" className="text-gray-600 hover:text-gray-900 font-medium">
                 About Us
-              </a>
-              <a href="#solutions" className="text-gray-600 hover:text-gray-900 font-medium">
+              </Link>
+              <Link to="/#solutions" className="text-gray-600 hover:text-gray-900 font-medium">
                 Features
-              </a>
-              <a href="#faq" className="text-gray-600 hover:text-gray-900 font-medium">
+              </Link>
+              <Link to="/#faq" className="text-gray-600 hover:text-gray-900 font-medium">
                 FAQ
-              </a>
+              </Link>
             </nav>
 
             {/* Desktop Auth Buttons */}
@@ -123,34 +123,34 @@ const Signup: React.FC = () => {
           {mobileMenuOpen && (
             <div className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-50 border-t border-gray-200">
-                <a
-                  href="#home"
+                <Link
+                  to="/#home"
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Home
-                </a>
-                <a
-                  href="#about"
+                </Link>
+                <Link
+                  to="/#about"
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   About Us
-                </a>
-                <a
-                  href="#solutions"
+                </Link>
+                <Link
+                  to="/#solutions"
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Features
-                </a>
-                <a
-                  href="#faq"
+                </Link>
+                <Link
+                  to="/#faq"
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   FAQ
-                </a>
+                </Link>
                 <div className="border-t border-gray-200 pt-4 mt-4">
                   <Link
                     to="/login"
@@ -452,14 +452,14 @@ const Signup: React.FC = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/#work" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <Link to="/#solutions" className="text-gray-600 hover:text-gray-900 text-sm">
                       How It Works
                     </Link>
                   </li>
                   <li>
-                    <a href="#faq" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <Link to="/#faq" className="text-gray-600 hover:text-gray-900 text-sm">
                       FAQ
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

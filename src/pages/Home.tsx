@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Plus, Minus } from 'lucide-react';
 import Logo from '../components/Logo';
@@ -13,7 +13,7 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
         onClick={() => setIsOpen(!isOpen)}
         className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-100 transition-colors duration-200"
       >
-        <h3 className="text-lg font-medium text-gray-900 pr-4">
+        <h3 className="text-h4 pr-4">
           {question}
         </h3>
         <div className="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
@@ -26,7 +26,7 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
       </button>
       {isOpen && (
         <div className="px-6 pb-6 pt-2">
-          <p className="text-gray-600 leading-relaxed">
+          <p className="text-body">
             {answer}
           </p>
         </div>
@@ -37,6 +37,22 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
 
 const Home: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Handle smooth scrolling to sections when coming from other pages
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }, 100);
+      }
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -50,16 +66,44 @@ const Home: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-600 hover:text-gray-900 font-medium">
+              <a 
+                href="#home" 
+                className="text-nav"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 Home
               </a>
-              <a href="#about" className="text-gray-600 hover:text-gray-900 font-medium">
+              <a 
+                href="#about" 
+                className="text-nav"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 About Us
               </a>
-              <a href="#solutions" className="text-gray-600 hover:text-gray-900 font-medium">
+              <a 
+                href="#solutions" 
+                className="text-nav"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#solutions')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 Features
               </a>
-              <a href="#faq" className="text-gray-600 hover:text-gray-900 font-medium">
+              <a 
+                href="#faq" 
+                className="text-nav"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#faq')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 FAQ
               </a>
             </nav>
@@ -68,7 +112,7 @@ const Home: React.FC = () => {
             <div className="hidden md:flex items-center space-x-4">
               <Link
                 to="/login"
-                className="text-gray-600 hover:text-gray-900 font-medium"
+                className="text-nav"
               >
                 Sign in
               </Link>
@@ -101,36 +145,52 @@ const Home: React.FC = () => {
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-50 border-t border-gray-200">
                 <a
                   href="#home"
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-nav"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                 >
                   Home
                 </a>
                 <a
                   href="#about"
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-nav"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                 >
                   About Us
                 </a>
                 <a
                   href="#solutions"
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-nav"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    document.querySelector('#solutions')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                 >
                   Features
                 </a>
                 <a
                   href="#faq"
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-nav"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    document.querySelector('#faq')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                 >
                   FAQ
                 </a>
                 <div className="border-t border-gray-200 pt-4 mt-4">
                   <Link
                     to="/login"
-                    className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
+                    className="block px-3 py-2 text-nav"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Sign in
@@ -153,13 +213,13 @@ const Home: React.FC = () => {
       <section id="home" className="bg-white py-10 md:py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight handwritten">
+            <h1 className="text-display handwritten mb-6">
               <span className="block">All your team's work on</span>
               <span className="block relative">
                 <span className="highlight-yellow">one platform.</span>
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 mb-12 handwritten">
+            <p className="text-h3 handwritten text-gray-700 mb-12">
               <span>Simple, efficient, and </span>
               <span className="highlight-blue">completely free!</span>
             </p>
@@ -167,13 +227,13 @@ const Home: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
               <Link
                 to="/signup"
-                className="btn bg-gray-900 text-white hover:bg-gray-800 text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-200"
+                className="btn bg-gray-900 text-white hover:bg-gray-800 text-button-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-200"
               >
                 Start now - It's free
               </Link>
               <a
                 href="#demo"
-                className="btn bg-gray-100 text-gray-900 hover:bg-gray-200 text-lg px-8 py-4 flex items-center gap-2 transition-all duration-200"
+                className="btn bg-gray-100 text-gray-900 hover:bg-gray-200 text-button-lg px-8 py-4 flex items-center gap-2 transition-all duration-200"
               >
                 Watch Demo
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -184,7 +244,7 @@ const Home: React.FC = () => {
 
             {/* Pricing Annotation */}
             <div className="relative inline-block curved-arrow">
-              <div className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium transform rotate-2 shadow-lg handwritten">
+              <div className="bg-purple-600 text-white px-4 py-2 rounded-lg text-button transform rotate-2 shadow-lg handwritten">
                 Free forever - No credit card required
               </div>
             </div>
@@ -193,53 +253,113 @@ const Home: React.FC = () => {
       </section>
 
 
+      {/* About Us Section */}
+      <section id="about" className="bg-white py-8 md:py-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-h1 mb-4">
+              About SynergySphere
+            </h2>
+            <p className="text-body-lg max-w-3xl mx-auto">
+              We're on a mission to revolutionize how teams collaborate and manage projects. 
+              SynergySphere brings together powerful project management tools with intuitive 
+              design to help teams work more efficiently and achieve their goals.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🚀</span>
+              </div>
+              <h3 className="text-h4 mb-2">Innovation</h3>
+              <p className="text-body">
+                We constantly innovate to bring you the latest in project management technology.
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🤝</span>
+              </div>
+              <h3 className="text-h4 mb-2">Collaboration</h3>
+              <p className="text-body">
+                Built for teams who believe in the power of working together effectively.
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">💡</span>
+              </div>
+              <h3 className="text-h4 mb-2">Simplicity</h3>
+              <p className="text-body">
+                Complex project management made simple and accessible for everyone.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section id="solutions" className="bg-white py-8 md:py-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center mb-8">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+              <h2 className="text-h1 mb-4">
                 Centralized
                 <br />
                 workspace.
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-body-lg">
                 Keep every project, file, discussion, and update in one simple, 
                 searchable hub—no more scattered info.
               </p>
             </div>
-            <div className="bg-gray-100 rounded-2xl p-12 h-80 flex items-center justify-center">
-              <div className="w-24 h-24 bg-white rounded-xl shadow-sm"></div>
+            <div className="bg-gray-100 rounded-2xl p-4 h-72 flex items-center justify-center overflow-hidden">
+              <img 
+                src="/src/images/Screenshot 2025-09-06 162801.png" 
+                alt="Centralized Workspace - SynergySphere Dashboard" 
+                className="w-4/5 h-4/5 object-contain shadow-sm"
+              />
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
             <div className="lg:order-2">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+              <h2 className="text-h1 mb-4">
                 Live task boards.
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-body-lg">
                 Track tasks by status, due date, and assignee with fast, 
                 mobile-friendly workflows and smooth drag-and-drop.
               </p>
             </div>
-            <div className="lg:order-1 bg-gray-100 rounded-2xl p-12 h-80 flex items-center justify-center">
-              <div className="w-24 h-24 bg-white rounded-full shadow-sm"></div>
+            <div className="lg:order-1 bg-gray-100 rounded-2xl p-4 h-72 flex items-center justify-center overflow-hidden">
+              <img 
+                src="/src/images/Screenshot 2025-09-06 162817.png" 
+                alt="Live Task Boards - SynergySphere Task Management" 
+                className="w-4/5 h-4/5 object-contain shadow-sm"
+              />
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+              <h2 className="text-h1 mb-4">
                 Instant project chat.
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-body-lg">
                 Built-in threaded messaging so teams never miss an update—skip 
                 the email chaos and stay aligned.
               </p>
             </div>
-            <div className="bg-gray-100 rounded-2xl p-12 h-80 flex items-center justify-center">
-              <div className="w-8 h-8 bg-white rounded-sm shadow-sm transform rotate-45"></div>
+            <div className="bg-gray-100 rounded-2xl p-4 h-72 flex items-center justify-center overflow-hidden">
+              <img 
+                src="/src/images/Screenshot 2025-09-06 162839.png" 
+                alt="Instant Project Chat - SynergySphere Communication" 
+                className="w-4/5 h-4/5 object-contain shadow-sm"
+              />
             </div>
           </div>
         </div>
@@ -300,7 +420,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Main Headline */}
-            <h2 className="text-5xl md:text-7xl font-bold mb-8 handwritten">
+            <h2 className="text-display handwritten mb-8">
               <span className="block text-gray-900">Unleash</span>
               <span className="block text-blue-600">your team's potential</span>
             </h2>
@@ -309,7 +429,7 @@ const Home: React.FC = () => {
             <div className="mb-8">
               <Link
                 to="/signup"
-                className="bg-purple-600 text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-purple-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
+                className="bg-purple-600 text-white px-8 py-4 rounded-lg text-button-lg hover:bg-purple-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
               >
                 Start now - It's free
               </Link>
@@ -322,7 +442,7 @@ const Home: React.FC = () => {
                   <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
                 </svg>
               </div>
-              <div className="text-gray-600 text-sm space-y-1">
+              <div className="text-body-sm space-y-1">
                 <p>No credit card required</p>
                 <p>Instant access</p>
               </div>
@@ -347,25 +467,25 @@ const Home: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-12">
               {/* Quick Links */}
               <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Quick Links</h3>
+                <h3 className="text-h4 mb-3">Quick Links</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link to="/signup" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <Link to="/signup" className="text-link">
                       Sign Up
                     </Link>
                   </li>
                   <li>
-                    <Link to="/login" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <Link to="/login" className="text-link">
                       Sign In
                     </Link>
                   </li>
                   <li>
-                    <Link to="/#work" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <Link to="/#work" className="text-link">
                       How It Works
                     </Link>
                   </li>
                   <li>
-                    <a href="#faq" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <a href="#faq" className="text-link">
                       FAQ
                     </a>
                   </li>
@@ -374,20 +494,20 @@ const Home: React.FC = () => {
 
               {/* Company */}
               <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Company</h3>
+                <h3 className="text-h4 mb-3">Company</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link to="/#about" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <Link to="/#about" className="text-link">
                       About Us
                     </Link>
                   </li>
                   <li>
-                    <a href="mailto:hello@synergysphere.com" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <a href="mailto:hello@synergysphere.com" className="text-link">
                       hello@synergysphere.com
                     </a>
                   </li>
                   <li>
-                    <a href="tel:+1-555-0123" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <a href="tel:+1-555-0123" className="text-link">
                       +1 (555) 012-3456
                     </a>
                   </li>
@@ -396,30 +516,30 @@ const Home: React.FC = () => {
 
               {/* Connect with us */}
               <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Connect with us</h3>
+                <h3 className="text-h4 mb-3">Connect with us</h3>
                 <ul className="space-y-2">
                   <li>
-                    <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <a href="#" className="text-link">
                       GitHub
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <a href="#" className="text-link">
                       Discord
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <a href="#" className="text-link">
                       YouTube
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <a href="#" className="text-link">
                       LinkedIn
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <a href="#" className="text-link">
                       Twitter
                     </a>
                   </li>

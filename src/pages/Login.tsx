@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Eye, EyeOff, Mail, Lock, Menu, X } from 'lucide-react';
@@ -8,12 +8,24 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  // Load remembered email on component mount
+  useEffect(() => {
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    const shouldRemember = localStorage.getItem('rememberMe') === 'true';
+    
+    if (rememberedEmail && shouldRemember) {
+      setEmail(rememberedEmail);
+      setRememberMe(true);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +35,14 @@ const Login: React.FC = () => {
     try {
       const success = await login(email, password);
       if (success) {
+        // Handle remember me functionality
+        if (rememberMe) {
+          localStorage.setItem('rememberMe', 'true');
+          localStorage.setItem('rememberedEmail', email);
+        } else {
+          localStorage.removeItem('rememberMe');
+          localStorage.removeItem('rememberedEmail');
+        }
         navigate('/dashboard');
       } else {
         setError('Invalid email or password');
@@ -45,18 +65,18 @@ const Login: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-600 hover:text-gray-900 font-medium">
+              <Link to="/#home" className="text-gray-600 hover:text-gray-900 font-medium">
                 Home
-              </a>
-              <a href="#about" className="text-gray-600 hover:text-gray-900 font-medium">
+              </Link>
+              <Link to="/#about" className="text-gray-600 hover:text-gray-900 font-medium">
                 About Us
-              </a>
-              <a href="#solutions" className="text-gray-600 hover:text-gray-900 font-medium">
+              </Link>
+              <Link to="/#solutions" className="text-gray-600 hover:text-gray-900 font-medium">
                 Features
-              </a>
-              <a href="#faq" className="text-gray-600 hover:text-gray-900 font-medium">
+              </Link>
+              <Link to="/#faq" className="text-gray-600 hover:text-gray-900 font-medium">
                 FAQ
-              </a>
+              </Link>
             </nav>
 
             {/* Desktop Auth Buttons */}
@@ -94,34 +114,34 @@ const Login: React.FC = () => {
           {mobileMenuOpen && (
             <div className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-50 border-t border-gray-200">
-                <a
-                  href="#home"
+                <Link
+                  to="/#home"
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Home
-                </a>
-                <a
-                  href="#about"
+                </Link>
+                <Link
+                  to="/#about"
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   About Us
-                </a>
-                <a
-                  href="#solutions"
+                </Link>
+                <Link
+                  to="/#solutions"
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Features
-                </a>
-                <a
-                  href="#faq"
+                </Link>
+                <Link
+                  to="/#faq"
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   FAQ
-                </a>
+                </Link>
                 <div className="border-t border-gray-200 pt-4 mt-4">
                   <Link
                     to="/login"
@@ -238,6 +258,8 @@ const Login: React.FC = () => {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
                     className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
                   <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
@@ -343,14 +365,14 @@ const Login: React.FC = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/#work" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <Link to="/#solutions" className="text-gray-600 hover:text-gray-900 text-sm">
                       How It Works
                     </Link>
                   </li>
                   <li>
-                    <a href="#faq" className="text-gray-600 hover:text-gray-900 text-sm">
+                    <Link to="/#faq" className="text-gray-600 hover:text-gray-900 text-sm">
                       FAQ
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

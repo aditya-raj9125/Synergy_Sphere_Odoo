@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from '../types';
-import { mockUsers } from '../data/mockData';
+import apiService from '../services/api';
 
 interface AuthContextType {
   user: User | null;
@@ -19,8 +19,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Check for stored user data on app load
     const storedUser = localStorage.getItem('synergysphere_user');
-    if (storedUser) {
+    const storedToken = localStorage.getItem('authToken');
+    
+    if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
+      apiService.setToken(storedToken);
     }
     setLoading(false);
   }, []);
@@ -28,53 +31,68 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string): Promise<boolean> => {
     setLoading(true);
     
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Find user by email (in real app, this would be an API call)
-    const foundUser = mockUsers.find(u => u.email === email);
-    
-    if (foundUser && password === 'password') { // Simple password check for demo
-      setUser(foundUser);
-      localStorage.setItem('synergysphere_user', JSON.stringify(foundUser));
+    try {
+      const response = await apiService.login(email, password) as { token: string; user: { id: string; name: string; email: string } };
+      
+      if (response.token && response.user) {
+        apiService.setToken(response.token);
+        const userData: User = {
+          id: response.user.id,
+          name: response.user.name,
+          email: response.user.email,
+          initials: response.user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase(),
+        };
+        
+        setUser(userData);
+        localStorage.setItem('synergysphere_user', JSON.stringify(userData));
+        setLoading(false);
+        return true;
+      }
+      
       setLoading(false);
-      return true;
-    }
-    
-    setLoading(false);
-    return false;
-  };
-
-  const signup = async (name: string, email: string, _password: string): Promise<boolean> => {
-    setLoading(true);
-    
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Check if user already exists
-    const existingUser = mockUsers.find(u => u.email === email);
-    if (existingUser) {
+      return false;
+    } catch (error) {
+      console.error('Login error:', error);
       setLoading(false);
       return false;
     }
+  };
+
+  const signup = async (name: string, email: string, password: string): Promise<boolean> => {
+    setLoading(true);
     
-    // Create new user
-    const newUser: User = {
-      id: Date.now().toString(),
-      name,
-      email,
-      initials: name.split(' ').map(n => n[0]).join('').toUpperCase(),
-    };
-    
-    setUser(newUser);
-    localStorage.setItem('synergysphere_user', JSON.stringify(newUser));
-    setLoading(false);
-    return true;
+    try {
+      const response = await apiService.register(name, email, password) as { token: string; user: { id: string; name: string; email: string } };
+      
+      if (response.token && response.user) {
+        apiService.setToken(response.token);
+        const userData: User = {
+          id: response.user.id,
+          name: response.user.name,
+          email: response.user.email,
+          initials: response.user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase(),
+        };
+        
+        setUser(userData);
+        localStorage.setItem('synergysphere_user', JSON.stringify(userData));
+        setLoading(false);
+        return true;
+      }
+      
+      setLoading(false);
+      return false;
+    } catch (error) {
+      console.error('Signup error:', error);
+      setLoading(false);
+      return false;
+    }
   };
 
   const logout = () => {
     setUser(null);
+    apiService.setToken(null);
     localStorage.removeItem('synergysphere_user');
+    localStorage.removeItem('authToken');
   };
 
   return (

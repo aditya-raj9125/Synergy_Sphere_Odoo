@@ -8,6 +8,9 @@
   * {
     @apply border-gray-200;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-gray-50 text-gray-900;
     font-feature-settings: "rlig" 1, "calt" 1;
@@ -15,8 +18,61 @@
 }
 
 @layer components {
+  /* Typography System */
+  .text-display {
+    @apply text-5xl md:text-7xl font-bold text-gray-900 leading-tight;
+  }
+  
+  .text-h1 {
+    @apply text-4xl md:text-5xl font-bold text-gray-900 leading-tight;
+  }
+  
+  .text-h2 {
+    @apply text-3xl md:text-4xl font-bold text-gray-900 leading-tight;
+  }
+  
+  .text-h3 {
+    @apply text-xl md:text-2xl font-semibold text-gray-900 leading-tight;
+  }
+  
+  .text-h4 {
+    @apply text-lg md:text-xl font-semibold text-gray-900 leading-tight;
+  }
+  
+  .text-body-lg {
+    @apply text-lg text-gray-600 leading-relaxed;
+  }
+  
+  .text-body {
+    @apply text-base text-gray-600 leading-relaxed;
+  }
+  
+  .text-body-sm {
+    @apply text-sm text-gray-600 leading-relaxed;
+  }
+  
+  .text-caption {
+    @apply text-xs text-gray-500 leading-relaxed;
+  }
+  
+  .text-button {
+    @apply text-sm font-medium;
+  }
+  
+  .text-button-lg {
+    @apply text-base font-medium;
+  }
+  
+  .text-link {
+    @apply text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors;
+  }
+  
+  .text-nav {
+    @apply text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors;
+  }
+
   .btn {
-    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-white min-h-[44px] px-4 py-2 shadow-sm hover:shadow-md;
+    @apply inline-flex items-center justify-center rounded-lg text-button transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-white min-h-[44px] px-4 py-2 shadow-sm hover:shadow-md;
   }
   
   .btn-primary {

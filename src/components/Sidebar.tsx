@@ -27,9 +27,9 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
     },
     {
       name: 'My Tasks',
-      href: '/my-tasks',
+      href: '/mytasks',
       icon: CheckSquare,
-      current: location.pathname === '/my-tasks',
+      current: location.pathname === '/mytasks',
     },
   ];
 

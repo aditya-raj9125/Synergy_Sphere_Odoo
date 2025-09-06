@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { AuthProvider } from './context/AuthContext';
+import { WebSocketProvider } from './context/WebSocketContext';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -17,7 +18,8 @@ function App() {
   return (
     <AppProvider>
       <AuthProvider>
-        <Router>
+        <WebSocketProvider>
+          <Router>
           <div className="min-h-screen bg-gray-50">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -40,7 +42,7 @@ function App() {
                 }
               />
               <Route
-                path="/my-tasks"
+                path="/mytasks"
                 element={
                   <ProtectedRoute>
                     <MyTasks />
@@ -97,7 +99,8 @@ function App() {
               />
             </Routes>
           </div>
-        </Router>
+          </Router>
+        </WebSocketProvider>
       </AuthProvider>
     </AppProvider>
   );
