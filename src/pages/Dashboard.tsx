@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Filter, Search } from 'lucide-react';
+import { Plus, Filter } from 'lucide-react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import Footer from '../components/Footer';
 import ProjectCard from '../components/ProjectCard';
 import { useApp } from '../context/AppContext';
-import { useAuth } from '../context/AuthContext';
 import { mockProjects } from '../data/mockData';
 import { Project } from '../types';
 
 const Dashboard: React.FC = () => {
   const { state, dispatch } = useApp();
-  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [filterPriority, setFilterPriority] = useState<string>('All');
   const [showFilters, setShowFilters] = useState(false);
@@ -144,6 +143,8 @@ const Dashboard: React.FC = () => {
             )}
           </div>
         </main>
+        
+        <Footer />
       </div>
     </div>
   );

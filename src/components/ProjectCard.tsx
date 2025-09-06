@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Users, Settings, Paperclip, MoreHorizontal } from 'lucide-react';
+import { Calendar, Settings, Paperclip, MoreHorizontal } from 'lucide-react';
 import { Project } from '../types';
 import { format } from 'date-fns';
 
@@ -100,7 +100,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSettingsClick }) =
       {/* Team Members */}
       <div className="flex items-center justify-between">
         <div className="flex items-center -space-x-2">
-          {project.members.slice(0, 3).map((member, index) => (
+          {project.members.slice(0, 3).map((member) => (
             <div
               key={member.id}
               className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center border-2 border-white"

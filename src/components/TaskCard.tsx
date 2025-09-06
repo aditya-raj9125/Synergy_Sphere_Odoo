@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Users, Settings, Paperclip, CheckCircle, Circle, Clock } from 'lucide-react';
+import { Calendar, Settings, Paperclip, CheckCircle, Circle, Clock } from 'lucide-react';
 import { Task } from '../types';
 import { format } from 'date-fns';
 

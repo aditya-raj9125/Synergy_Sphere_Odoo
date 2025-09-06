@@ -1,7 +1,9 @@
+/* Tailwind CSS directives - processed by PostCSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Custom styles */
 @layer base {
   * {
     @apply border-gray-200;

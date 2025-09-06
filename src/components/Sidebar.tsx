@@ -3,13 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { 
   FolderOpen, 
   CheckSquare, 
-  User, 
-  Settings,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { useApp } from '../context/AppContext';
+import Logo from './Logo';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -18,7 +16,6 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
   const { user } = useAuth();
-  const { state } = useApp();
   const location = useLocation();
 
   const navigation = [
@@ -43,13 +40,10 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
       <div className="flex flex-col h-full">
         {/* Logo and Toggle */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          {!collapsed && (
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">SynergySphere</span>
-            </div>
+          {!collapsed ? (
+            <Logo size="md" showText={true} />
+          ) : (
+            <Logo size="sm" showText={false} />
           )}
           <button
             onClick={onToggle}

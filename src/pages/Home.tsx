@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Users, Target, Zap, Shield, Globe, CheckCircle, Menu, X, Plus, Minus } from 'lucide-react';
+import { Menu, X, Plus, Minus } from 'lucide-react';
+import Logo from '../components/Logo';
 
 // FAQ Item Component
 const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, answer }) => {
@@ -44,14 +45,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
-              </div>
-              <span className="text-xl font-bold">
-                <span className="text-black">Synergy</span> <span className="text-blue-900">Sphere</span>
-              </span>
-            </div>
+            <Logo size="md" showText={true} />
 
 
             {/* Desktop Navigation */}
@@ -343,14 +337,7 @@ const Home: React.FC = () => {
           <div className="flex flex-col lg:flex-row justify-between items-start">
             {/* Company Info */}
             <div className="mb-4 lg:mb-0 lg:mr-16">
-              <div className="flex items-center space-x-2 mb-2">
-                <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">S</span>
-                </div>
-                <span className="text-xl font-bold">
-                  <span className="text-black">Synergy</span> <span className="text-blue-900">Sphere</span>
-                </span>
-              </div>
+              <Logo size="md" showText={true} />
             </div>
 
             {/* Vertical Line */}

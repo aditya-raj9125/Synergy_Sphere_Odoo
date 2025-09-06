@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Search, Bell, Menu, User } from 'lucide-react';
+import { Search, Bell, Menu } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import Logo from './Logo';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -41,14 +42,7 @@ const Header: React.FC<HeaderProps> = ({
           )}
           
           {!title && (
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900 hidden sm:block">
-                SynergySphere
-              </span>
-            </div>
+            <Logo size="md" showText={true} className="hidden sm:flex" />
           )}
         </div>
 

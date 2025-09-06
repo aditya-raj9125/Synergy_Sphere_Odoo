@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Plus, Filter, CheckCircle, Clock, Circle } from 'lucide-react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import Footer from '../components/Footer';
 import TaskCard from '../components/TaskCard';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
@@ -267,6 +268,8 @@ const MyTasks: React.FC = () => {
             )}
           </div>
         </main>
+        
+        <Footer />
       </div>
     </div>
   );

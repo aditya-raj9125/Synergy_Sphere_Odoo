@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, Settings, LogOut, Bell, Shield, HelpCircle } from 'lucide-react';
+import { User, LogOut, Bell, Shield, HelpCircle } from 'lucide-react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import { useApp } from '../context/AppContext';
